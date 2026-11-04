@@ -78,10 +78,8 @@ npm run dev
 
 Vite mostrará en la terminal la dirección local para abrir la aplicación en el navegador (habitualmente `http://localhost:5173`).
 
-> **Nota:** el proyecto utiliza el script `npm run dev`; no tiene definido un script `npm start` en `package.json`.
-
 ## Integrantes
 
 - Lucas Robledo
-- [Completar nombre] Rabaglino
-
+- Bruno Rabaglino
+- Soloa Tomas
