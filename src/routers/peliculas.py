@@ -4,7 +4,6 @@ from sqlmodel import Session, select
 from fastapi_pagination import Page, paginate
 
 from database import get_db
-
 from models.anidados import PeliculaNested
 from models.peliculas import PeliculaPublic,Pelicula,PeliculaBase
 
@@ -40,7 +39,6 @@ async def obtener_pelicula(id: Annotated[int, Path(gt=0)], db:Session = Depends(
     else:
         return peliculas_obtenidas
     
-
 # --- POST ---
 
 @peliculas_routers.post("/", response_model = PeliculaNested)
@@ -64,10 +62,10 @@ async def actualizar_pelicula(
 
     pelicula_obtenidas = db.get(Pelicula,id)
     if pelicula_obtenidas is not None:
-        pelicula_obtenidas.titulo = pelicula_editar.titulo
-        pelicula_obtenidas.director = pelicula_editar.director
-        pelicula_obtenidas.año = pelicula_editar.año
-        pelicula_obtenidas.activo = pelicula_editar.activo
+        pelicula_obtenidas.titulo = pelicula_update.titulo
+        pelicula_obtenidas.director = pelicula_update.director
+        pelicula_obtenidas.año = pelicula_update.año
+        pelicula_obtenidas.activo = pelicula_update.activo
         db.commit()
         db.refresh(pelicula_obtenidas)
         return(pelicula_obtenidas)
@@ -84,11 +82,11 @@ async def eliminar_pelicula(
                            ) -> list[PeliculaPublic] :
 
     pelicula_obtenidas = db.get(Pelicula,id)
-    if pelicula_obtenida is not None:
+    if pelicula_obtenidas is not None:
         if logico:
-            pelicula_obtenida.activo = False 
+            pelicula_obtenidas.activo = False 
         else:
-            db.delete(pelicula_obtenida)
+            db.delete(pelicula_obtenidas)
             db.commit()
-    return db.exec(select(Pelicula)).all()
+        return db.exec(select(Pelicula)).all()
     raise HTTPException(status_code=404, detail="Articulo no encontrado")
