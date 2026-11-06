@@ -36,9 +36,10 @@ async def obtener_peliculas(
 async def obtener_pelicula(id: Annotated[int, Path(gt=0)], db:Session = Depends(get_db)):
     peliculas_obtenidas = db.get(Pelicula,id)
     if peliculas_obtenidas is None:
-        return peliculas_obtenidas
+        raise HTTPException(status_code=404, detail="Articulo no encontrado")
     else:
-        return HTTPException(status_code=404, detail="Articulo no encontrado")
+        return peliculas_obtenidas
+    
 
 # --- POST ---
 
