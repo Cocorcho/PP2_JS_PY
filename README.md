@@ -30,7 +30,7 @@ El proyecto está compuesto por un frontend y un backend. Ambos deben estar en e
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone <https://github.com/Cocorcho/PP2_JS_PY>
 cd <CARPETA_DEL_PROYECTO>
 ```
 
