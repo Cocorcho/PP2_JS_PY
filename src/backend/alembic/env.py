@@ -8,11 +8,8 @@ from sqlmodel import SQLModel
 
 from alembic import context
 
-# Ensure src and root are in sys.path
+# Ensure src/backend is in sys.path
 BASE_DIR = Path(__file__).resolve().parent.parent
-SRC_DIR = BASE_DIR / "src"
-if str(SRC_DIR) not in sys.path:
-    sys.path.insert(0, str(SRC_DIR))
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
@@ -22,35 +19,31 @@ try:
     from models.genero import Genero
     from models.salas import Sala
 except ImportError:
-    from src.models.peliculas import Pelicula
-    from src.models.genero import Genero
-    from src.models.salas import Sala
+    from src.backend.models.peliculas import Pelicula
+    from src.backend.models.genero import Genero
+    from src.backend.models.salas import Sala
 
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
 config = context.config
 
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
 target_metadata = SQLModel.metadata
 
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
+
+def get_clean_url(url: str | None) -> str | None:
+    if url and url.startswith("postgres://"):
+        return url.replace("postgres://", "postgresql://", 1)
+    return url
 
 
 def run_migrations_offline() -> None:
-    url = os.getenv("DATABASE_URL") or config.get_main_option("sqlalchemy.url")
+    url = get_clean_url(os.getenv("DATABASE_URL") or config.get_main_option("sqlalchemy.url"))
+    is_sqlite = (url or "").startswith("sqlite")
     context.configure(
         url=url,
         target_metadata=target_metadata,
-        render_as_batch=True,
+        render_as_batch=is_sqlite,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
     )
@@ -61,8 +54,9 @@ def run_migrations_offline() -> None:
 
 def run_migrations_online() -> None:
     configuration = config.get_section(config.config_ini_section, {})
-    if os.getenv("DATABASE_URL"):
-        configuration["sqlalchemy.url"] = os.getenv("DATABASE_URL")
+    db_url = get_clean_url(os.getenv("DATABASE_URL"))
+    if db_url:
+        configuration["sqlalchemy.url"] = db_url
 
     connectable = engine_from_config(
         configuration,
@@ -71,8 +65,11 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
+        is_sqlite = connection.dialect.name == "sqlite"
         context.configure(
-            connection=connection, render_as_batch=True, target_metadata=target_metadata
+            connection=connection,
+            render_as_batch=is_sqlite,
+            target_metadata=target_metadata,
         )
 
         with context.begin_transaction():

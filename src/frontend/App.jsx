@@ -6,6 +6,7 @@ import PeliculasLista from "./pages/PeliculasLista.jsx";
 import PeliculaDetalle from "./pages/PeliculaDetalle.jsx";
 import Favoritos from "./pages/Favoritos.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Admin from "./pages/Admin.jsx";
 
 export default function App() {
   return (
@@ -22,6 +23,8 @@ export default function App() {
             <Route path="proximamente" element={<PeliculasLista estado="proximamente" />} />
           </Route>
 
+          <Route path="/admin" element={<Admin />} />
+          
           {/* Ruta dinámica */}
           <Route path="/pelicula/:id" element={<PeliculaDetalle />} />
 

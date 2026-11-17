@@ -1,11 +1,10 @@
 import sys
 from pathlib import Path
 
-# Add src to sys.path
+# Add backend folder to sys.path
 BASE_DIR = Path(__file__).resolve().parent
-SRC_DIR = BASE_DIR / "src"
-if str(SRC_DIR) not in sys.path:
-    sys.path.insert(0, str(SRC_DIR))
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 
 from sqlmodel import Session, select
 from database import engine
