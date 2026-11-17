@@ -2,6 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext.jsx";
 import { useFavoritos } from "../context/FavoritosContext.jsx";
 
+
 const enlaces = [
   { to: "/", texto: "Inicio" },
   { to: "/peliculas", texto: "Películas" },

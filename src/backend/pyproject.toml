@@ -1,0 +1,28 @@
+[project]
+name = "cinereact-api"
+version = "0.1.0"
+description = "API de Cine en FastAPI"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.162.0",
+    "fastapi-pagination>=0.16.1",
+    "sqlmodel>=0.0.48",
+    "SQLAlchemy>=2.1.6",
+    "uvicorn>=0.54.0",
+    "alembic>=1.20.1",
+    "python-dotenv>=1.2.4",
+    "psycopg2-binary>=2.9.0",
+    "pydantic>=2.14.1",
+    "Jinja2>=3.1.6",
+    "Mako>=1.4.3",
+    "python-multipart>=0.0.32",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]

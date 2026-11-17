@@ -16,12 +16,11 @@ export default function PeliculasLista({ estado }) {
     getGeneros().then(setGeneros).catch(() => setGeneros([]));
   }, []);
 
-  // Las películas se vuelven a pedir cuando cambia la pestaña o algún filtro
+
   useEffect(() => {
     setLoading(true);
     setError(null);
 
-    // Pequeña espera para no disparar una petición por cada letra que se escribe
     const espera = setTimeout(() => {
       getPeliculas({ q: busqueda, genero, estado })
         .then(setPeliculas)

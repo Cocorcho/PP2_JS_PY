@@ -7,8 +7,7 @@ import { Cargando, ErrorMensaje, Vacio } from "../components/Estados.jsx";
 
 export default function Favoritos() {
   const { esFavorito } = useFavoritos();
-  // Pedimos las películas a la API para mostrar los datos actuales
-  // (y no mostrar una película que ya se dio de baja)
+
   const { data: peliculas, loading, error } = useFetch(() => getPeliculas(), []);
 
   const favoritas = peliculas ? peliculas.filter((p) => esFavorito(p.id)) : [];

@@ -7,6 +7,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+cine.db
 
 # Virtual environments
 venv/
@@ -107,3 +108,6 @@ Desktop.ini
 
 *.orig
 *.rej
+
+# FastAPI Cloud
+.fastapicloud/

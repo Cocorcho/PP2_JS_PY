@@ -1,0 +1,32 @@
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Node & Frontend build (el frontend se deploya en Vercel)
+node_modules/
+dist/
+.vite/
+src/frontend/
+
+# Git
+.git/
+.github/
+
+# Bytecode & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local databases & env
+*.db
+*.sqlite
+*.sqlite3
+cine.db
+src/backend/cine.db
+.env
+.env.*
+!.env.example
