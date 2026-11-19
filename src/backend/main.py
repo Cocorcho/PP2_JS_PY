@@ -9,9 +9,9 @@ disable_installed_extensions_check()
 
 from .database import engine
 
-from routers.peliculas import peliculas_routers
-from routers.genero import genero_routers
-from routers.salas import salas_routers
+from .routers.peliculas import peliculas_routers
+from .routers.genero import genero_routers
+from .routers.salas import salas_routers
 
 # Crea las tablas y la db
 SQLModel.metadata.create_all(bind=engine)
