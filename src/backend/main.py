@@ -7,7 +7,7 @@ from fastapi_pagination.utils import disable_installed_extensions_check
 
 disable_installed_extensions_check()
 
-from database import engine
+from .database import engine
 
 from routers.peliculas import peliculas_routers
 from routers.genero import genero_routers
